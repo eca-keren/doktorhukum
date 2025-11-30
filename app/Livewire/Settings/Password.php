@@ -7,12 +7,13 @@ use Illuminate\Validation\Rules\Password as PasswordRule;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
+/**
+ * @method bool update(array $attributes)
+ */
 class Password extends Component
 {
     public string $current_password = '';
-
     public string $password = '';
-
     public string $password_confirmation = '';
 
     /**
@@ -27,11 +28,13 @@ class Password extends Component
             ]);
         } catch (ValidationException $e) {
             $this->reset('current_password', 'password', 'password_confirmation');
-
             throw $e;
         }
 
-        Auth::user()->update([
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $user->update([
             'password' => $validated['password'],
         ]);
 

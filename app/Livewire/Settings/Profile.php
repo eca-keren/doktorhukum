@@ -15,12 +15,21 @@ class Profile extends Component
     public string $email = '';
 
     /**
+     * @var \App\Models\User
+     */
+    protected User $user;
+
+    /**
      * Mount the component.
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        /** @var \App\Models\User $authUser */
+        $authUser = Auth::user();
+
+        $this->user = $authUser;
+        $this->name = $authUser->name;
+        $this->email = $authUser->email;
     }
 
     /**
@@ -28,11 +37,11 @@ class Profile extends Component
      */
     public function updateProfileInformation(): void
     {
-        $user = Auth::user();
+        /** @var \App\Models\User $user */
+        $user = $this->user;
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-
             'email' => [
                 'required',
                 'string',
@@ -59,11 +68,11 @@ class Profile extends Component
      */
     public function resendVerificationNotification(): void
     {
-        $user = Auth::user();
+        /** @var \App\Models\User $user */
+        $user = $this->user;
 
         if ($user->hasVerifiedEmail()) {
             $this->redirectIntended(default: route('dashboard', absolute: false));
-
             return;
         }
 
