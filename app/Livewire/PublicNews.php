@@ -32,7 +32,8 @@ class PublicNews extends Component
         return News::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%');
+                      ->orWhere('description', 'like', '%' . $this->search . '%');
+                // ✅ Tidak ada "orWhere('author', ...)" → SUDAH AMAN
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(12);

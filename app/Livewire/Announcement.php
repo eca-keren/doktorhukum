@@ -20,8 +20,7 @@ class Announcement extends Component
     public $announcementId = null;
 
     public $title = '';
-    public $author = '';
-    public $date = '';
+    public $date = ''; // author dihapus
     public $image = null;
     public $imagePreview = null;
 
@@ -42,8 +41,8 @@ class Announcement extends Component
     {
         return AnnouncementModel::query()
             ->when($this->search, function ($query) {
-                $query->where('title', 'like', '%' . $this->search . '%')
-                    ->orWhere('author', 'like', '%' . $this->search . '%');
+                $query->where('title', 'like', '%' . $this->search . '%');
+                // HAPUS PENCARIAN BERDASARKAN AUTHOR
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
@@ -68,7 +67,6 @@ class Announcement extends Component
         $announcement = AnnouncementModel::findOrFail($id);
         $this->announcementId = $announcement->id;
         $this->title = $announcement->title;
-        $this->author = $announcement->author;
         $this->date = $announcement->date->format('Y-m-d');
         $this->imagePreview = $announcement->image;
         $this->image = null;
@@ -106,7 +104,6 @@ class Announcement extends Component
     {
         $validated = $this->validate([
             'title' => ['required', 'string', 'max:255'],
-            'author' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date'],
             'image' => ['required', 'image', 'max:5120'], // 5MB max
         ]);
@@ -131,7 +128,6 @@ class Announcement extends Component
 
         $rules = [
             'title' => ['required', 'string', 'max:255'],
-            'author' => ['required', 'string', 'max:255'],
             'date' => ['required', 'date'],
         ];
 
@@ -241,8 +237,7 @@ class Announcement extends Component
     private function resetForm(): void
     {
         $this->title = '';
-        $this->author = '';
-        $this->date = '';
+        $this->date = ''; // author dihapus
         $this->image = null;
         $this->imagePreview = null;
         $this->announcementId = null;

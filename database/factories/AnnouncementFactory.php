@@ -18,7 +18,6 @@ class AnnouncementFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(5),
-            'author' => $this->faker->name(),
             'date' => $this->faker->dateTimeBetween('-30 days', 'now'),
             'image' => null, // Image akan dihandle secara manual atau dengan seeding khusus
         ];

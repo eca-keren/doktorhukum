@@ -19,7 +19,6 @@ class NewsFactory extends Factory
         return [
             'title' => $this->faker->sentence(6),
             'description' => $this->faker->paragraphs(3, true),
-            'author' => $this->faker->name(),
             'date' => $this->faker->dateTimeBetween('-30 days', 'now'),
             'image' => null, // Image akan dihandle secara manual atau dengan seeding khusus
         ];

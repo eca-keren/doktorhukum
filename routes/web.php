@@ -16,8 +16,7 @@ Route::get('/', function () {
 })->name('home');
 
 // Public routes (no authentication required)
-Route::get('/news-list', PublicNews::class)->name('public.news');
-Route::get('/announcements-list', PublicAnnouncement::class)->name('public.announcements');
+
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

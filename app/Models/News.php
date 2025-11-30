@@ -19,7 +19,6 @@ class News extends Model
         'title',
         'description',
         'date',
-        'author',
         'image',
     ];
 
