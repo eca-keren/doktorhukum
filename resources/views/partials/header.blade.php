@@ -43,64 +43,81 @@
 
                 <!-- MENU TEMPLATE -->
                 @php
-                    $menus = [
-                        "profil" => [
-                            ["Sejarah", "#"],
-                            ["Visi & Misi", "#"],
-                            ["Tujuan & Strategi", "#"],
-                            ["Struktur Organisasi", "#"],
-                            ["Dosen", "#"]
-                        ],
-                        "akademik" => [
-                            ["Kurikulum", "#"],
-                            ["Kalender Akademik", "#"],
-                            ["Tahapan Studi", "#"]
-                        ],
-                        "ppm" => [
-                            ["Penelitian", "#"],
-                            ["Pengabdian", "#"]
-                        ],
-                        "registrasi" => [
-                            ["Pendaftaran", "#"],
-                            ["MABA", "#"],
-                            ["Alumni", "#"]
-                        ],
-                        "info" => [
-                            ["Pusat Informasi", "#"],
-                            ["SATGAS PPKT", "#"],
-                            ["Kontak", "#"]
-                        ]
-                    ];
-                @endphp
+    $menus = [
+        "profil" => [
+            "items" => [
+                ["Sejarah", "/profil/sejarah"],
+                ["Visi & Misi", "/profil/visimisi"],
+                ["Tujuan & Strategi", "/profil/tujuan-strategi"],
+                ["Struktur Organisasi", "/profil/struktur"],
+                ["Dosen", "/profil/dosen"],
+            ]
+        ],
+        "akademik" => [
+            "items" => [
+                ["Kurikulum", "/akademik/kurikulum"],
+                ["Kalender Akademik", "/akademik/kalender"],
+                ["Tahapan Studi", "/akademik/tahapan"],
+            ]
+        ],
+        "ppm" => [
+            "items" => [
+                ["Penelitian", "/ppm/penelitian"],
+                ["Pengabdian", "/ppm/pengabdian"],
+            ]
+        ],
+        "registrasi" => [
+            "items" => [
+                ["Pendaftaran", "/registrasi/pendaftaran"],
+                ["MABA", "/registrasi/maba"],
+                ["Alumni", "/registrasi/alumni"],
+            ]
+        ],
+        "info" => [
+            "items" => [
+                ["Pusat Informasi", "/info/pusat"],
+                ["SATGAS PPKT", "/info/ppkt"],
+                ["Kontak", "/info/kontak"],
+            ]
+        ],
+    ];
+@endphp
+
 
                 <!-- GENERATE MENU DROPDOWN -->
-                @foreach ($menus as $key => $items)
-                <li class="relative"
-                    @click.away="openMenu = null">
+                @foreach ($menus as $key => $menu)
+<li class="relative" @click.away="openMenu = null">
 
-                    <button
-@click.stop="openMenu = (openMenu === '{{ $key }}' ? null : '{{ $key }}')"
-                        class="hover:text-blue-200">
-                        {{ ucfirst($key) }}
-                    </button>
+    <!-- MAIN BUTTON (menu utama punya link) -->
+    <button
+    @click.stop="openMenu = (openMenu === '{{ $key }}' ? null : '{{ $key }}')"
+    class="hover:text-blue-200 capitalize">
+    {{ $key }}
+</button>
 
-                    <div
-                        x-show="openMenu === '{{ $key }}'"
-                        x-transition
-                        class="absolute left-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56 z-50">
 
-                        @foreach ($items as $item)
-                            <a class="block px-4 py-2 hover:bg-gray-100" href="{{ $item[1] }}">
-                                {{ $item[0] }}
-                            </a>
-                        @endforeach
-                    </div>
-                </li>
-                @endforeach
+    <!-- DROPDOWN -->
+    <div
+        x-show="openMenu === '{{ $key }}'"
+        x-transition
+        class="absolute 
+            {{ $loop->last ? 'right-0' : 'left-0' }}
+            top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56 z-50">
+
+        @foreach ($menu['items'] as $item)
+            <a class="block px-4 py-2 hover:bg-gray-100" href="{{ $item[1] }}">
+                {{ $item[0] }}
+            </a>
+        @endforeach
+
+    </div>
+</li>
+@endforeach
+
 
                 <!-- LANGUAGE SWITCH -->
                 <li class="relative" @click.away="openMenu=null">
-                    <button @click="openMenu = (openMenu === 'lang' ? null : 'lang')"
+                    <button @click.stop="openMenu = (openMenu === 'lang' ? null : 'lang')"
                             class="flex items-center gap-2">
                         🇮🇩 <span class="text-white">ID</span>
                     </button>
