@@ -1,10 +1,10 @@
-<header class="w-full shadow-sm">
-    
+<header class="w-full shadow-sm" x-data="{ openMenu: null }">
+
     <!-- TOP BAR -->
     <div class="w-full bg-gradient-to-r from-[#80A7E0] to-[#5A8BD6] py-4">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
 
-            <!-- LEFT SIDE (LOGO + TEXT) -->
+            <!-- LEFT SIDE -->
             <div class="flex items-center gap-4">
                 <img src="{{ asset('images/logo_unib.png') }}"
                      class="h-16 w-auto"
@@ -26,14 +26,13 @@
                     <i class="bi bi-search text-xl"></i>
                 </button>
             </div>
-
         </div>
     </div>
 
     <!-- MENU BAR -->
     <nav class="bg-[#4A76C0] w-full">
         <div class="max-w-7xl mx-auto px-4">
-            <ul class="flex items-center gap-8 text-white font-medium text-sm h-12">
+            <ul class="flex items-center gap-8 text-white font-medium text-sm h-12 justify-end">
 
                 <!-- HOME -->
                 <li>
@@ -42,94 +41,78 @@
                     </a>
                 </li>
 
-                <!-- PROFIL -->
-                <li x-data="{open:false}" class="relative">
-                    <button @mouseover="open=true" @mouseleave="open=false"
-                            class="hover:text-blue-200">
-                        Profil
+                <!-- MENU TEMPLATE -->
+                @php
+                    $menus = [
+                        "profil" => [
+                            ["Sejarah", "#"],
+                            ["Visi & Misi", "#"],
+                            ["Tujuan & Strategi", "#"],
+                            ["Struktur Organisasi", "#"],
+                            ["Dosen", "#"]
+                        ],
+                        "akademik" => [
+                            ["Kurikulum", "#"],
+                            ["Kalender Akademik", "#"],
+                            ["Tahapan Studi", "#"]
+                        ],
+                        "ppm" => [
+                            ["Penelitian", "#"],
+                            ["Pengabdian", "#"]
+                        ],
+                        "registrasi" => [
+                            ["Pendaftaran", "#"],
+                            ["MABA", "#"],
+                            ["Alumni", "#"]
+                        ],
+                        "info" => [
+                            ["Pusat Informasi", "#"],
+                            ["SATGAS PPKT", "#"],
+                            ["Kontak", "#"]
+                        ]
+                    ];
+                @endphp
+
+                <!-- GENERATE MENU DROPDOWN -->
+                @foreach ($menus as $key => $items)
+                <li class="relative"
+                    @click.away="openMenu = null">
+
+                    <button
+@click.stop="openMenu = (openMenu === '{{ $key }}' ? null : '{{ $key }}')"
+                        class="hover:text-blue-200">
+                        {{ ucfirst($key) }}
                     </button>
 
-                    <div x-show="open"
-                         @mouseover="open=true"
-                         @mouseleave="open=false"
-                         class="absolute left-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56">
+                    <div
+                        x-show="openMenu === '{{ $key }}'"
+                        x-transition
+                        class="absolute left-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56 z-50">
 
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Sejarah</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Visi & Misi</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Tujuan & Strategi</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Struktur Organisasi</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Dosen</a>
+                        @foreach ($items as $item)
+                            <a class="block px-4 py-2 hover:bg-gray-100" href="{{ $item[1] }}">
+                                {{ $item[0] }}
+                            </a>
+                        @endforeach
                     </div>
                 </li>
+                @endforeach
 
-                <!-- AKADEMIK -->
-                <li x-data="{open:false}" class="relative">
-                    <button @mouseover="open=true" @mouseleave="open=false"
-                            class="hover:text-blue-200">
-                        Akademik
+                <!-- LANGUAGE SWITCH -->
+                <li class="relative" @click.away="openMenu=null">
+                    <button @click="openMenu = (openMenu === 'lang' ? null : 'lang')"
+                            class="flex items-center gap-2">
+                        🇮🇩 <span class="text-white">ID</span>
                     </button>
 
-                    <div x-show="open"
-                         @mouseover="open=true"
-                         @mouseleave="open=false"
-                         class="absolute left-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56">
-                        
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Kurikulum</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Kalender Akademik</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Tahapan Studi</a>
-                    </div>
-                </li>
+                    <div
+                        x-show="openMenu === 'lang'"
+                        x-transition
+                        class="absolute right-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-36 z-50">
 
-                <!-- PPM & UPM -->
-                <li x-data="{open:false}" class="relative">
-                    <button @mouseover="open=true" @mouseleave="open=false"
-                            class="hover:text-blue-200">
-                        PPM & UPM
-                    </button>
-
-                    <div x-show="open"
-                         @mouseover="open=true"
-                         @mouseleave="open=false"
-                         class="absolute left-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56">
-                        
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Penelitian</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Pengabdian</a>
-                    </div>
-                </li>
-
-                <!-- REGISTRASI -->
-                <li x-data="{open:false}" class="relative">
-                    <button @mouseover="open=true" @mouseleave="open=false"
-                            class="hover:text-blue-200">
-                        Registrasi
-                    </button>
-
-                    <div x-show="open"
-                         @mouseover="open=true"
-                         @mouseleave="open=false"
-                         class="absolute left-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56">
-                        
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Pendaftaran</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">MABA</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Alumni</a>
-                    </div>
-                </li>
-
-                <!-- INFO -->
-                <li x-data="{open:false}" class="relative">
-                    <button @mouseover="open=true" @mouseleave="open=false"
-                            class="hover:text-blue-200">
-                        Info
-                    </button>
-
-                    <div x-show="open"
-                         @mouseover="open=true"
-                         @mouseleave="open=false"
-                         class="absolute left-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-56">
-                        
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Pusat Informasi</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">SATGAS PPKT</a>
-                        <a class="block px-4 py-2 hover:bg-gray-100" href="#">Kontak</a>
+                        <button class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full text-left">
+                            🇬🇧 <span>English</span>
+                        </button>
                     </div>
                 </li>
 
