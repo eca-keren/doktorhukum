@@ -115,23 +115,34 @@
 @endforeach
 
 
-                <!-- LANGUAGE SWITCH -->
-                <li class="relative" @click.away="openMenu=null">
-                    <button @click.stop="openMenu = (openMenu === 'lang' ? null : 'lang')"
-                            class="flex items-center gap-2">
-                        🇮🇩 <span class="text-white">ID</span>
-                    </button>
+              <!-- LANGUAGE SWITCH -->
+<li class="relative" @click.away="openMenu=null">
+    <button @click.stop="openMenu = (openMenu === 'lang' ? null : 'lang')"
+            class="flex items-center gap-2">
 
-                    <div
-                        x-show="openMenu === 'lang'"
-                        x-transition
-                        class="absolute right-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-36 z-50">
+        <img src="{{ asset('images/flags/id.jpg') }}" 
+             class="w-5 h-5 rounded-sm object-cover" 
+             alt="Indonesian Flag">
 
-                        <button class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full text-left">
-                            🇬🇧 <span>English</span>
-                        </button>
-                    </div>
-                </li>
+        <span class="text-white">ID</span>
+    </button>
+
+    <div
+        x-show="openMenu === 'lang'"
+        x-transition
+        class="absolute right-0 top-12 bg-white text-gray-900 rounded-lg shadow-lg py-3 w-36 z-50">
+
+        <button class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100 w-full text-left">
+
+            <img src="{{ asset('images/flags/gd.jpg') }}" 
+                 class="w-5 h-5 rounded-sm object-cover" 
+                 alt="English Flag">
+
+            <span>English</span>
+        </button>
+    </div>
+</li>
+
 
             </ul>
         </div>
