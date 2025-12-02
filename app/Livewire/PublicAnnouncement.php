@@ -32,7 +32,6 @@ class PublicAnnouncement extends Component
         return Announcement::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%');
-                // 🔥 Pencarian berdasarkan 'author' dihapus
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(12);

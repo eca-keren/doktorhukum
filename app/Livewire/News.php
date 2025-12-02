@@ -21,7 +21,7 @@ class News extends Component
 
     public $title = '';
     public $description = '';
-    public $date = ''; // <-- author dihapus
+    public $date = '';
     public $image = null;
     public $imagePreview = null;
 
@@ -43,7 +43,6 @@ class News extends Component
         return NewsModel::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%');
-                // Pencarian berdasarkan author dihapus
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
@@ -70,7 +69,6 @@ class News extends Component
         $this->title = $news->title;
         $this->description = $news->description;
         $this->date = $news->date->format('Y-m-d');
-        // $this->author = ... DIHAPUS
         $this->imagePreview = $news->image;
         $this->image = null;
         $this->isEditing = true;
@@ -109,7 +107,6 @@ class News extends Component
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'min:10'],
             'date' => ['required', 'date'],
-            // 'author' dihapus dari validasi
             'image' => ['required', 'image', 'max:5120'], // 5MB max
         ]);
 
@@ -135,7 +132,6 @@ class News extends Component
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'min:10'],
             'date' => ['required', 'date'],
-            // 'author' dihapus dari rules
         ];
 
         if ($this->image) {
@@ -246,7 +242,6 @@ class News extends Component
         $this->title = '';
         $this->description = '';
         $this->date = '';
-        // $this->author = ''; DIHAPUS
         $this->image = null;
         $this->imagePreview = null;
         $this->newsId = null;

@@ -44,7 +44,6 @@
                             @endif
                         </button>
                     </th>
-                    <!-- Author column removed -->
                     <th class="px-6 py-3 text-left">
                         <button
                             wire:click="sortBy('date')"
@@ -79,7 +78,7 @@
                                 <span class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-1">{{ Str::limit($item->description, 50) }}</span>
                             </div>
                         </td>
-                        <!-- Author cell removed -->
+                        
                         <td class="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">
                             {{ $item->date->format('M d, Y') }}
                         </td>
@@ -178,13 +177,14 @@
                 @enderror
             </div>
 
-            <!-- Date only (author removed) -->
-            <flux:input
-                wire:model="date"
-                :label="__('Date')"
-                type="date"
-                required
-            />
+            <div class="grid grid-cols-2 gap-4">
+                <flux:input
+                    wire:model="date"
+                    :label="__('Date')"
+                    type="date"
+                    required
+                />
+            </div>
 
             <!-- Image Upload -->
             <div>

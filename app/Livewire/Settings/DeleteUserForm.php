@@ -6,10 +6,6 @@ use App\Livewire\Actions\Logout;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-/**
- * @property \App\Models\User $user
- * @method void delete()
- */
 class DeleteUserForm extends Component
 {
     public string $password = '';
@@ -23,10 +19,7 @@ class DeleteUserForm extends Component
             'password' => ['required', 'string', 'current_password'],
         ]);
 
-        /** @var \App\Models\User $authUser */
-        $authUser = Auth::user();
-
-        tap($authUser, $logout(...))->delete();
+        tap(Auth::user(), $logout(...))->delete();
 
         $this->redirect('/', navigate: true);
     }

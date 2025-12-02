@@ -20,7 +20,7 @@ class Announcement extends Component
     public $announcementId = null;
 
     public $title = '';
-    public $date = ''; // author dihapus
+    public $date = '';
     public $image = null;
     public $imagePreview = null;
 
@@ -42,7 +42,6 @@ class Announcement extends Component
         return AnnouncementModel::query()
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%');
-                // HAPUS PENCARIAN BERDASARKAN AUTHOR
             })
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(10);
@@ -237,7 +236,7 @@ class Announcement extends Component
     private function resetForm(): void
     {
         $this->title = '';
-        $this->date = ''; // author dihapus
+        $this->date = '';
         $this->image = null;
         $this->imagePreview = null;
         $this->announcementId = null;

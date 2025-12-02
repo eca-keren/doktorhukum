@@ -63,7 +63,7 @@
         <!-- Divider -->
         <div class="border-t border-neutral-700 pt-8">
             <div class="text-center text-neutral-400 text-sm">
-                <p>&copy; 2025 Program Doktor Hukum, Universitas Bengkulu. All rights reserved.</p>
+                <p>&copy; 2024 Program Doktor Hukum, Universitas Bengkulu. All rights reserved.</p>
             </div>
         </div>
     </div>

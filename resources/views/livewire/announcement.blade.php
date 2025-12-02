@@ -44,7 +44,6 @@
                             @endif
                         </button>
                     </th>
-                    <!-- Author column removed -->
                     <th class="px-6 py-3 text-left">
                         <button
                             wire:click="sortBy('date')"
@@ -76,7 +75,6 @@
                         <td class="px-6 py-4">
                             <span class="font-medium text-neutral-900 dark:text-neutral-100">{{ $item->title }}</span>
                         </td>
-                        <!-- Author cell removed -->
                         <td class="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">
                             {{ $item->date->format('M d, Y') }}
                         </td>
@@ -119,7 +117,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-6 py-12 text-center">
+                        <td colspan="5" class="px-6 py-12 text-center">
                             <div class="flex flex-col items-center justify-center">
                                 <svg class="mb-4 h-12 w-12 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.961 1.961 0 01-2.773 1.753M5.007 7.307a1 1 0 011.415-.496l3.85 2.413a1 1 0 00.588 0l3.85-2.413a1 1 0 011.415.496M5 15a4 4 0 018 0v3.1M5 15a4 4 0 018 0v3.1" />
@@ -158,8 +156,6 @@
                 required
                 autofocus
             />
-
-            <!-- Author input removed -->
 
             <flux:input
                 wire:model="date"
